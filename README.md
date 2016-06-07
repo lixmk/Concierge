@@ -5,7 +5,7 @@ for now, simple bash scripts will do the job.
 
 EH400-exploit.sh
 
-	This scripts modified exploits the HID discoveryd vulnerability on a vulnerable 
+	This scripts exploits the HID discoveryd vulnerability on a vulnerable 
 	HID Edge EVo EH400 to replace the .htpasswd file with a password of your choosing. 
 	The original .htpasswd files is backed up to allow for restoration to original 
 	settings. (EH400-cleanup.sh)
