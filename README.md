@@ -6,7 +6,7 @@ for now, simple bash scripts will do the job.
 EH400-exploit.sh
 
 	This scripts exploits the HID discoveryd vulnerability on a vulnerable 
-	HID Edge EVo EH400 to replace the .htpasswd file with a password of your choosing. 
+	HID Edge EVO EH400 to replace the .htpasswd file with a password of your choosing. 
 	The original .htpasswd files is backed up to allow for restoration to original 
 	settings. (EH400-cleanup.sh)
 	TODO: Acceptable as is. Will eventually be rolled into more complete toolkit.
@@ -24,3 +24,23 @@ EH400-cleanup.sh
 	the backed-up .htpasswd file to it's proper location, effectively restoring the
 	original 'admin' user password.
 	TODO: Acceptable as is. Will eventually be depreciated
+
+VertX-exploit.sh
+
+        This scripts exploits the HID discoveryd vulnerability on a vulnerable
+        HID VertX EVO V1000 or V2000 to replace add the user 'z' with password 'backdoor'
+        to /etc/passwd with privs for the 'axadmin' group. 
+        TODO: Acceptable as is. Will eventually be rolled into more complete toolkit.
+
+VertX-exfil.sh
+
+        This script should only be run after VertX-exploit.sh. This script will copy sensitive
+        files to the HID VertX EVO door controller's web root (/mnt/apps/web/) then uses
+        wget to pull them down. After files have been exfil'd, this scripts cleans the files.
+        TODO: Build in checks to ensure files have been exfil'd correctly.
+
+VertX-cleanup.sh
+
+        Pretty straight forward. This script cleans after VertX-exploit.sh. It deletes
+        the 'z' user and removes any temporary files associated with exploitation.
+        TODO: Acceptable as is. Will eventually be depreciated

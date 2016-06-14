@@ -6,7 +6,7 @@
 # exfil.co									#
 #                                                                               #
 #	###########################################################		#
-#	# HID Discoveryd htpasswd modifier for the Edge Evo EH400 #		#
+#	# HID Discoveryd htpasswd modifier for the Edge EVO EH400 #		#
 #	#                                                         #		#
 #	#    Restores the htpasswd file from backup created by    #		#
 #	#              the EH400-exploit.sh script.               #		#
@@ -30,7 +30,7 @@
 echo -e "\e[1;31m############################################################\e[0m"
 echo -e "\e[1;31m#\e[0m                                                          \e[1;31m#\e[0m"
 echo -e "\e[1;31m#\e[0m      This script will restore the htdigest password      \e[1;31m#\e[0m"
-echo -e "\e[1;31m#\e[0m     for the targeted Edge Evo EH400 door controller.     \e[1;31m#\e[0m"
+echo -e "\e[1;31m#\e[0m     for the targeted Edge EVO EH400 door controller.     \e[1;31m#\e[0m"
 echo -e "\e[1;31m#\e[0m                                                          \e[1;31m#\e[0m"
 echo -e "\e[1;31m#\e[0m            Variables need to be set manually             \e[1;31m#\e[0m"
 echo -e "\e[1;31m#\e[0m    CTRL-C now to set vars or press ENTER to continue.    \e[1;31m#\e[0m"

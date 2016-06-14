@@ -6,7 +6,7 @@
 # exfil.co                                                                      #
 #                                                                               #
 #	###########################################################             #
-#	#  HID Discoveryd Data Exfil tool for the Edge Evo EH400  #             #
+#	#  HID Discoveryd Data Exfil tool for the Edge EVO EH400  #             #
 #	#                                                         #             #
 #	# Copies files to EH400 web root using the HID Discoveryd #             #
 #	#     remote command injection vulnerability and wgets    #             #
