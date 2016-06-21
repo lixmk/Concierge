@@ -15,7 +15,7 @@ categories = {"discovery", "safe"}
 
 ---
 -- @usage
--- nmap -sU -p4070 --script=hid-discoveryd-enum 
+-- nmap -sU -p 4070 --script=hid-discoveryd-enum 
 --
 -- @output
 -- PORT     STATE         SERVICE
@@ -24,7 +24,7 @@ categories = {"discovery", "safe"}
 -- |   Response: discovered
 -- |   MAC Address: 00:06:8E:FF:FF:FF
 -- |   Host Name: EdgeEH400-001
--- |   IP Address: 10.0.0.1
+-- |   Internal IP: 10.0.0.1
 -- |   Device Type: EH400
 -- |   Firmware Version: 3.5.1.1483
 -- |_  Build Date: 07/02/2015
