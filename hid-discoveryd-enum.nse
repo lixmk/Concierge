@@ -6,7 +6,7 @@ local string = require "string"
 local table = require "table"
 
 description = [[
-Attempts to identify HID Door Controllers.
+Used the discoveryd service on upd port 4070 to enumerate information from HID Door Controllers.
 ]]
 
 author = "Mike Kelly (@lixmk)"
@@ -48,5 +48,7 @@ action = function(host, port)
   table.insert(output, stdnse.strjoin(" ", {"Device Type:", fld[7]}))
   table.insert(output, stdnse.strjoin(" ", {"Firmware Version:", fld[8]}))
   table.insert(output, stdnse.strjoin(" ", {"Build Date:", fld[9]}))
-  return stdnse.format_output(true, output)
+  if stdnse.contains(output, "Response: discovered") then
+    return stdnse.format_output(true, output)
+  end
 end
