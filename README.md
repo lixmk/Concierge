@@ -1,46 +1,47 @@
-# Concierge
-A collection (eventually) of Physical Access Control and Monitoring attacks and utilities.
-These will all eventually evolve into a more effective and user friendly set of tools, but
-for now, simple bash scripts will do the job.
+# Concierge  
+A collection (eventually) of Physical Access Control and Monitoring attacks and utilities.  
+These will all eventually evolve into a more effective and user friendly set of tools, but  
+for now, simple bash scripts will do the job.  
+  
+eh400.sh  
+  
+  Usage: ./eh400.sh <action>  
+  Actions: exploit, cleanup  
+  All necessary variables will be entered during execution of the script.  
+  
+  'exploit' leverages command injection vulnerability to:  
+  --Modify .htpasswd file to a known password value for "admin" user. This allows manual control via http(s).  
+  --Pushes "door" lock/unlock script to the EH400 (used by door.sh). This allows for control via cmdline.  
+  --Pulls IdentDB badge store and /etc/shadow from EH400.  
+  --Also checks /etc/shadow for known default password values.  
+    
+  'cleanup' removes all copied or created files and restores the original htpasswd file.  
+  
+vertx.sh  
+  
+  Usage: ./vertx.sh <action>  
+  Actions: exploit, cleanup  
+  All necessary variables will be entered during execution of the script.  
+  'exploit' leverages command injection vulnerability to:  
+  --Creates new user, 'z', with password 'backdoor', and grants web access privs. This allows manual control via http(s).  
+  --Pushes "door" lock/unlock script to the VertX EVO (used by door.sh). This allows for control via cmdline.  
+  --Pulls IdentDB badge store and /etc/passwd from VertX EVO.  
+  --Also checks /etc/shadow for known default password values.  
+  
+  'clean up' removes all copied or created files and deletes the 'z' user.  
+  
+deploy.sh  
+  
+  Usage: ./deploy.sh <ip> <mac>  
+  This script can be used for both EH400 and VertX EVO door controllers. This is a lighter weight script  
+  that only deploys the door script for use with door.sh.  
+  
+door.sh  
+  
+  Usage: ./door.sh <ip> <mac> <action>  
+  Actions: unlock, lock  
+  Example: ./door.sh 10.0.0.1 00:11:22:33:44:55 unlock  
+  Leverages the 'door' script deployed by either eh400.sh or vertx.sh.  
+  Use this script to trigger the locking mechanism from commandline.  
 
-EH400-exploit.sh
 
-	This scripts exploits the HID discoveryd vulnerability on a vulnerable 
-	HID Edge EVO EH400 to replace the .htpasswd file with a password of your choosing. 
-	The original .htpasswd files is backed up to allow for restoration to original 
-	settings. (EH400-cleanup.sh)
-	TODO: Acceptable as is. Will eventually be rolled into more complete toolkit.
-
-EH400-exfil.sh
-
-	This script should only be run after EH400-exploit.sh. This script will copy sensitive 
-	files to the HID Edge EVO EH400 door controller's web root (/mnt/apps/web/) then uses 
-	wget to pull them down. After files have been exfil'd, this scripts cleans the files.
-	TODO: Build in checks to ensure files have been exfil'd correctly.
-
-EH400-cleanup.sh
-
-	Pretty straight forward. This script cleans after EH400-exploit.sh. It restores
-	the backed-up .htpasswd file to it's proper location, effectively restoring the
-	original 'admin' user password.
-	TODO: Acceptable as is. Will eventually be depreciated
-
-VertX-exploit.sh
-
-        This scripts exploits the HID discoveryd vulnerability on a vulnerable
-        HID VertX EVO V1000 or V2000 to replace add the user 'z' with password 'backdoor'
-        to /etc/passwd with privs for the 'axadmin' group. 
-        TODO: Acceptable as is. Will eventually be rolled into more complete toolkit.
-
-VertX-exfil.sh
-
-        This script should only be run after VertX-exploit.sh. This script will copy sensitive
-        files to the HID VertX EVO door controller's web root (/mnt/apps/web/) then uses
-        wget to pull them down. After files have been exfil'd, this scripts cleans the files.
-        TODO: Build in checks to ensure files have been exfil'd correctly.
-
-VertX-cleanup.sh
-
-        Pretty straight forward. This script cleans after VertX-exploit.sh. It deletes
-        the 'z' user and removes any temporary files associated with exploitation.
-        TODO: Acceptable as is. Will eventually be depreciated
