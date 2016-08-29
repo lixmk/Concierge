@@ -17,7 +17,7 @@ All necessary variables will be entered during execution of the script.
 
 **exploit:** Leverages command injection vulnerability to:  
 * Modify .htpasswd file to a known password value for "admin" user. This allows manual control via http(s).  
-* Pushes "door" lock/unlock script to the EH400 (used by door.sh). This allows for control via cmdline.  
+* Pushes remote agent script to the EH400 (used by door.sh). This allows for control via cmdline.  
 * Pulls IdentDB badge store and /etc/shadow from EH400.  
 * Also checks /etc/shadow for known default password values.  
     
