@@ -45,7 +45,7 @@ fi
 if [ $3 == lock ]
 then
   echo 'command_blink_on;044;'$2';1`/tmp/agent lock`;' > lock.txt
-  ${CMDEXEC} -2 -p 4070 -c 1 -E unlock.txt -d 150 $1 2> /dev/null
+  ${CMDEXEC} -2 -p 4070 -c 1 -E lock.txt -d 150 $1 2> /dev/null
   exit 1
 fi
 exit 1

