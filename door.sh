@@ -34,7 +34,13 @@ then
   echo "Example: ./door.sh 10.0.0.1 00:11:22:33:44:55 unlock"
 	exit 1
 fi
-
+if [ "$(ls | egrep -q datafiles && echo "1" || echo "0")" = "0" ]
+then
+  mkdir datafiles
+  cd ./datafiles
+else
+  cd ./datafiles
+fi
 if [ $3 == unlock ]
 then
   echo 'command_blink_on;044;'$2';1`/tmp/agent unlock`;' > unlock.txt
@@ -48,4 +54,5 @@ then
   ${CMDEXEC} -2 -p 4070 -c 1 -E lock.txt -d 150 $1 2> /dev/null
   exit 1
 fi
+cd ../
 exit 1
