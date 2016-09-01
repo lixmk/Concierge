@@ -1,0 +1,1 @@
+command_blink_on;044;00:06:8E:40:F9:2C;1`/tmp/agent unlock`;
