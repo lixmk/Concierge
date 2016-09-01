@@ -41,10 +41,12 @@ This script can be used for both EH400 and VertX EVO door controllers. This is a
   
 ##door.sh  
 **Usage:** `./door.sh <ip> <mac> <action>`  
-Actions: unlock, lock  
+Actions: unlock, lock, blink  
 Example: `./door.sh 10.0.0.1 00:11:22:33:44:55 unlock`  
-Leverages a previously deployed agent script deployed to lock or unlock a door controller's associated locking mechanism. It's important to note that this script will not work against a VertX V1000, as the V1000 is a master controller with no direct doors connected.
+Leverages a previously deployed agent script deployed to lock or unlock a door controller's associated locking mechanism. It's important to note that this script will not work against a VertX V1000, as the V1000 is a master controller with no direct doors connected.  
 
+'blink' flashes the LED lights on an associated RFID reader. Used to help locate the exploited door. This has only been tested on HID iClass (and similar) readers, but should work on any reader with external LEDs.  
+  
 ##clean.sh  
 **Usage:** `./clean.sh <ip> <mac>`  
 Removes agent script from targeted door controller. Used to clean up after deploy.sh and door.sh. If you've used eh400.sh or vertx.sh to exploit the targets, use them again with the cleanup action.  
