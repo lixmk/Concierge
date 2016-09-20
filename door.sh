@@ -30,7 +30,7 @@ EXPECTED_ARGS=3;
 if [ $# -ne $EXPECTED_ARGS ]
 then
 	echo "Usage: ./door.sh <ip> <mac> <action>"
-  echo "Actions: unlock, lock"
+  echo "Actions: unlock, lock, blink"
   echo "Example: ./door.sh 10.0.0.1 00:11:22:33:44:55 unlock"
 	exit 1
 fi
@@ -51,6 +51,12 @@ fi
 if [ $3 == lock ]
 then
   echo 'command_blink_on;044;'$2';1`/tmp/agent lock`;' > lock.txt
+  ${CMDEXEC} -2 -p 4070 -c 1 -E lock.txt -d 150 $1 2> /dev/null
+  exit 1
+fi
+if [ $3 == blink ]
+then
+  echo 'command_blink_on;044;'$2';1`/tmp/agent blink`;' > lock.txt
   ${CMDEXEC} -2 -p 4070 -c 1 -E lock.txt -d 150 $1 2> /dev/null
   exit 1
 fi
