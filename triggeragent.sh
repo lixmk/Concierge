@@ -29,9 +29,9 @@ CMDEXEC=`which hping3`
 EXPECTED_ARGS=3;
 if [ $# -ne $EXPECTED_ARGS ]
 then
-	echo "Usage: ./door.sh <ip> <mac> <action>"
+	echo "Usage: ./triggeragent.sh <ip> <mac> <action>"
   echo "Actions: unlock, lock, blink"
-  echo "Example: ./door.sh 10.0.0.1 00:11:22:33:44:55 unlock"
+  echo "Example: ./triggeragent.sh 10.0.0.1 00:11:22:33:44:55 unlock"
 	exit 1
 fi
 if [ "$(ls | egrep -q datafiles && echo "1" || echo "0")" = "0" ]
