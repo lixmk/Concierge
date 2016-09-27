@@ -41,10 +41,12 @@ This script can be used for both EH400 and VertX EVO door controllers. This is a
   
 ##door.sh  
 **Usage:** `./door.sh <ip> <mac> <action>`  
-Actions: unlock, lock  
+Actions: unlock, lock, blink  
 Example: `./door.sh 10.0.0.1 00:11:22:33:44:55 unlock`  
-Leverages a previously deployed agent script deployed to lock or unlock a door controller's associated locking mechanism. It's important to note that this script will not work against a VertX V1000, as the V1000 is a master controller with no direct doors connected.
+Leverages a previously deployed agent script deployed to lock/unlock a door controller's associated locking mechanism or blink the LEDs on the associated reader. It's important to note that this script will not work against a VertX V1000, as the V1000 is a master controller with no direct doors connected.  
 
+'blink' flashes the LED lights on an associated RFID reader. Used to help locate the exploited door. This has only been tested on HID iClass (and similar) readers, but should work on any reader with external LEDs.  
+  
 ##clean.sh  
 **Usage:** `./clean.sh <ip> <mac>`  
 Removes agent script from targeted door controller. Used to clean up after deploy.sh and door.sh. If you've used eh400.sh or vertx.sh to exploit the targets, use them again with the cleanup action.  
@@ -57,4 +59,9 @@ Testing of these scripts were completed against three seperate HID Door controll
 
 deploy.sh and door.sh have only been fully tested against the EH400 so far. I don't have a fully functioning test-setup built for the VertX V2000 yet, but in initial testing, relays triggered by the scripts were audible.  
   
-A wiki will be on the way shortly enough to provide more thorough information.
+A wiki will be on the way shortly enough to provide more thorough information.  
+  
+##TO DO
+* Combine eh400.sh and vertx.sh into single script. Evaluate better ways to handle variables. Maybe just provide target IP and use discover to pull MAC.  
+* Develop "MassDeploy" script to scan and deploy agent.
+* Modify controller agent to modify passwords instead of using command injection.
