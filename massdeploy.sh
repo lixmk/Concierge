@@ -1,4 +1,29 @@
 #!/bin/bash
+###########################################################################
+# Writen by Mike Kelly                                                    #
+# twitter.com/lixmk                                                       #
+# github.com/lixmk                                                        #
+# exfil.co                                                                #
+###########################################################################
+#                                                                         # 
+#                Concierge - Mass agent deployment script                 #
+#                                                                         #
+###########################################################################
+#                                                                         #
+# This program is free software: you can redistribute it and/or modify    #
+# it under the terms of the GNU General Public License as published by    #
+# the Free Software Foundation, either version 3 of the License, or       #
+# at your option) any later version.                                      #
+#                                                                         #
+# This program is distributed in the hope that it will be useful,         #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of          #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           #
+# GNU General Public License for more details.                            #
+#                                                                         #
+# You should have received a copy of the GNU General Public License       #
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.   #
+#                                                                         #
+###########################################################################
 CMDEXEC=`which hping3`
 EXPECTED_ARGS=2;
 if [ $# -ne $EXPECTED_ARGS ]
@@ -7,7 +32,6 @@ then
   echo "Targets should be in Nmap Format, not input file"
   echo "Example: ./massdeploy.sh 10.0.0.1 10.1.1.0/24"
   echo ""
-  echo "If you've already run nmap, rename the xml to 'results.xml' and comment out the 'Running Nmap' section"
   exit 2
 fi
 
@@ -22,7 +46,6 @@ fi
 cp ../tools/agent /var/www/html/a
 
 #Running Nmap
-#Comment out the following line if you've already completed the nmap scan
 echo "Starting Nmap against $2... This could take a while."
 echo "Stats will be provided every 30 seconds"
 nmap -sU -p 4070 --stats-every 30s --script hid-discoveryd-enum -oA results $2 | egrep '(remaining|Stats: )'
