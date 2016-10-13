@@ -11,6 +11,6 @@ Blog: <http://exfil.co/2016/05/09/exploring-the-hid-eh400/>
 Blog: <http://exfil.co/2016/06/14/exploiting-vertx-door-controllers/>
 
 ## Pydev
-These scripts are the "future" versions of the .sh scripts. Once all the .sh scripts have been ported to python and tested, they .sh scripts will be depreciated (but probably saved in ./old or something, just in case).  
+These scripts are the "future" versions of the .sh scripts. Once all the .sh scripts have been ported to python and tested, the .sh scripts will not be updated anymore (but probably saved in ./old or something, just in case).  
 ## Notes
 The "mass" .py scripts require netaddr which can be installed with `pip install netaddr`  
