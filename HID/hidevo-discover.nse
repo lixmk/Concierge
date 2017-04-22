@@ -6,7 +6,7 @@ local string = require "string"
 local table = require "table"
 
 description = [[
-Used the discoveryd service on upd port 4070 to enumerate information from HID Door Controllers.
+Uses the discoveryd service on udp port 4070 to enumerate information from HID EVO Door Controllers.
 ]]
 
 author = "Mike Kelly (@lixmk)"
