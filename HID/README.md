@@ -17,10 +17,11 @@ Blog: <http://exfil.co/2016/06/14/exploiting-vertx-door-controllers/>
 ## hidevo-exploit.py  
 **Usage:** `./hidevo_exploit.py -r <rhost> -l <lhost> -c <cmd>`  
 Commands Available:  
-* unlock: Unlocks the associated door  
-* lock:   Locks the associated door  
-* blink:  Cycles a light pattern on the associated Badge Reader  
-* steal:  Downloads and decodes the controllers IdentDB file, parsing out associated RFID card numbers. Hex values provided can be copy/pasted into proxmark for cloning. This has not yet been tested for iClass, but will be soon. Recovered badge values are saved to `./hidevo-badges.csv` along with targets IP address and hostname.  
+* unlock:  Unlocks the associated door  
+* lock:    Locks the associated door  
+* blink:   Cycles a light pattern on the associated Badge Reader  
+* exfil:   Downloads and decodes the controllers IdentDB file, parsing out associated RFID card numbers. Hex values provided can be copy/pasted into proxmark for cloning. This has not yet been tested for iClass, but will be soon. Recovered badge values are saved to `./hidevo-badges.csv` along with targets IP address and hostname.  
+* implant: Implants a backdoor badge value into the door controller. PM3 Hex: `2004060a73`. iClass Blk7 (Encrypted): `8b0c4cf554bca3fe` 
   
 ## hidevo-discover.py  
 **Usage:** `./hidevo_discover -r <target(s) in CIDR>`  

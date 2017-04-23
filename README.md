@@ -2,7 +2,11 @@
 Concierge is collection of various scripts and resources to aid in identification and exploitation of physical access control and monitoring systems.  
 This kit is in very early stages and currently can only test for and exploit HID EVO (Edge and VertX) door controllers. That said, new tests exploits will be eventually released be added and I will continue to refine and update current scripts.  
   
-## Most Recent Change:  
+## Pseudo Changlog:  
+**4/23/17**  
+Added implant feature to hidevo-exploit.py. Implants a known badge value into the HID EVO Door Controller's DB files.  
+  
+**4/22/17**  
 The Directory Structure: The directory structure has been modified to a vendor based layout. This has little effect now, but will in the future.  
   
 The HID EVO discovery and exploitation scripts have been rewritten completely. The previous .sh scripts are completely obsolete and have been removed. Even the previous .py scripts in /pydev have been removed.  
