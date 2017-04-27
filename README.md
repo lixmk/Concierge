@@ -1,6 +1,6 @@
 # Concierge: Access Control Exploitation Kit  
 Concierge is collection of various scripts and resources to aid in identification and exploitation of physical access control and monitoring systems.  
-This kit is in very early stages and currently can only test for and exploit HID EVO (Edge and VertX) door controllers. That said, new tests exploits will be eventually released be added and I will continue to refine and update current scripts.  
+This kit is in very early stages and currently can only test for and exploit HID EVO (Edge and VertX) door controllers. That said, new tests and exploits will be eventually released be added and I will continue to refine and update current scripts.  
   
 ## Pseudo Changlog:  
 **4/23/17**  

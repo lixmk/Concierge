@@ -6,16 +6,12 @@
 # This script is part of the Concierge Toolkit
 # https://github.com/lixmk/Concierge
 #
-# Discover HID EVO and AMAG EN Series door controllers in a cidr range
+# Discover HID EVO door controllers in a cidr range
 #
 
 import socket
 import argparse
-import SimpleHTTPServer
-import SocketServer
-import threading
 import netaddr
-from time import sleep
 from os import remove
 from os import path
 
@@ -44,10 +40,6 @@ def hid_evo_discover():
             print "    MAC Address: "+rspn.split(";")[2]
             print "    Firmware Version: "+rspn.split(";")[7]
             print "    Build Date: "+rspn.split(";")[8]
-    except (KeyboardInterrupt, SystemExit):
-        s.close
-        print "Keyboard Interrupt: Stopping all processes"
-        raise
     except (socket.timeout, socket.error):
         s.close
 
@@ -61,7 +53,7 @@ if __name__ == '__main__':
     print "# Concierge: Access Control Exploition #"
     print "########################################"
     print ""
-    print "[*] Starting door controller discovery."
+    print "[*] Starting HID EVO door controller discovery."
     # Creating csv if not already there
     if path.isfile("hidevo-details.csv") == 0:
         with open("hidevo-details.csv","a+")as f:
