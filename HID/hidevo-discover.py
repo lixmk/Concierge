@@ -6,7 +6,7 @@
 # This script is part of the Concierge Toolkit
 # https://github.com/lixmk/Concierge
 #
-# Discover HID EVO door controllers in a cidr range
+# Used HIDs discoveryd service to identify HID EVO door controllers in a cidr range.
 #
 
 import socket
