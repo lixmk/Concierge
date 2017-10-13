@@ -27,7 +27,3 @@ Commands Available:
 ## hidevo-discover.py  
 **Usage:** `./hidevo_discover -r <target(s) in CIDR>`  
 Uses HID's discoveryd service to identify HID EVO door controllers on the network. Identified door controllers are saved to `./hidevo-details.txt` which contains the full enumerated details of each identified HID EVO door controller. Currently only scans 1 ip at a time. Future version should allow for parallel scanning.  
-  
-## hidevo-discover.nse  
-**Usage:** `nmap -sU -p 4070 --script=/path/to/NSE/hidevodiscover.nse <target(s)>`  
-For use with nmap to scan larger network segments than the .py version can currently handle. MSF `db_import` has not been tested yet.  
