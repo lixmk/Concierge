@@ -1,4 +1,4 @@
-# Concierge: HID  
+# Concierge Toolkit: HID  
 Scripts related to the discovery and exploitation of HID global devices and services.  
   
 ## Acknowledgements
