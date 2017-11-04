@@ -1,5 +1,5 @@
 # Concierge Toolkit: Utilities  
-Miscellaneous scripts for stuff  
+Miscellaneous scripts for stuff.  
   
 ## rfid-card-gen.py  
 This script takes a facility code and card number and outputs proxmark3 hex values for HID 26 bit, HID Corp 35 bit (with facility code), and/or HID 37 bit badges.  
@@ -8,9 +8,9 @@ This script takes a facility code and card number and outputs proxmark3 hex valu
 * The script also ensures that facility codes and card numbers are with the acceptable ranges for each bit length.  
   
 ## ./nse/hid-evo-discover.nse  
-**Usage:** `nmap -sU -p 4070 --script=hid-evo-discover.nse <target(s)>`
-Recreates HID's discoveryd structure to identify door HID Edge EVO and VertX EVO door controllers.
-**Output:**
+**Usage:** `nmap -sU -p 4070 --script=hid-evo-discover.nse <target(s)>`  
+Recreates HID's discoveryd structure to identify door HID Edge EVO and VertX EVO door controllers.  
+**Output:**  
 ```
 Nmap scan report 10.0.0.1
 Host is up (0.12s latency).
