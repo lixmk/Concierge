@@ -21,14 +21,13 @@ categories = {"discovery", "safe"}
 -- PORT     STATE         SERVICE
 -- 4070/udp open|filtered unknown
 -- | hid-discoveryd-enum: 
--- |   Response: discovered
--- |   MAC Address: 00:06:8E:FF:FF:FF
+-- |   MAC Address: 00:06:8E:XX:XX:XX
 -- |   Host Name: EdgeEH400-001
 -- |   Internal IP: 10.0.0.1
 -- |   Device Type: EH400
 -- |   Firmware Version: 3.5.1.1483
 -- |_  Build Date: 07/02/2015
--- MAC Address: 00:06:8E:FF:FF:FF (HID)
+-- MAC Address: 00:06:8E:XX:XX:XX (HID)
 ---
 
 portrule = shortport.portnumber(4070, "udp")
@@ -41,14 +40,13 @@ action = function(host, port)
   local status, data = socket:receive()
   local fld = stdnse.strsplit(";", data)
   local output = {}
-  table.insert(output, stdnse.strjoin(" ", {"Response:", fld[1]}))
   table.insert(output, stdnse.strjoin(" ", {"MAC Address:", fld[3]}))
   table.insert(output, stdnse.strjoin(" ", {"Host Name:", fld[4]}))
   table.insert(output, stdnse.strjoin(" ", {"Internal IP:", fld[5]}))
   table.insert(output, stdnse.strjoin(" ", {"Device Type:", fld[7]}))
   table.insert(output, stdnse.strjoin(" ", {"Firmware Version:", fld[8]}))
   table.insert(output, stdnse.strjoin(" ", {"Build Date:", fld[9]}))
-  if stdnse.contains(output, "Response: discovered") then
+  if string.match(fld[1], "discovered") then
     return stdnse.format_output(true, output)
   end
 end

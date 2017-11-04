@@ -7,7 +7,7 @@
 # https://github.com/lixmk/Concierge
 #
 # Takes Facility Code and Card number to generate proxmark3 hex values for card cloning
-# Currently capable of generating 26 bit HID, 35 bit HID Corp, and 37 bit HID (with facility code) formats 
+# Currently capable of generating generic 26 bit, 35 bit HID Corp, and 37 bit HID (with facility code) formats 
 #
 
 import argparse
@@ -41,7 +41,7 @@ def bl26(fc, cn):
         # outputing
         bcard = header+epb+bfc+bcn+opb
         pmhex = hex(int(bcard, 2))[2:].zfill(10)
-        print "26 bit card hex: "+pmhex
+        print "[+] 26 bit card hex: "+pmhex
 
 def bl35(fc, cn):
     global pmhex
@@ -79,7 +79,7 @@ def bl35(fc, cn):
         # outputing
         bcard = header+pb3+pb1+bfc+bcn+pb2
         pmhex = hex(int(bcard, 2))[2:].zfill(10)
-        print "35 bit card hex: "+pmhex
+        print "[+] 35 bit card hex: "+pmhex
 
 def bl37(fc, cn):
     global pmhex
@@ -107,7 +107,7 @@ def bl37(fc, cn):
         # outputing
         bcard = epb+bfc+bcn+opb
         pmhex = hex(int(bcard, 2))[2:].zfill(10)
-        print "37 bit card hex: "+pmhex
+        print "[+] 37 bit card hex: "+pmhex
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(usage='./hid-cardgen.py -b 26 -fc 111 -cn 2222')
@@ -118,27 +118,34 @@ if __name__ == '__main__':
     bitlen = args.bitlen
     fc = args.fc
     cn = args.cn
+    print ""
+    print "#############################################"
+    print "#             Concierge Toolkit             #"
+    print "#                                           #"
+    print "#  RFID Badge Hex Generator for Proxmark 3  #"
+    print "#############################################"
+    print ""
     # only 26 bit
     if bitlen == "26":
-        print "Generating 26 bit card hex for FC: "+fc+" and CN: "+cn
+        print "[*] Generating 26 bit card hex for FC: "+fc+" and CN: "+cn
         print ""
         bl26(fc, cn)
 
     # only 35 bit
     elif bitlen == "35":
-        print "Generating 35 bit card hex for FC: "+fc+" and CN: "+cn
+        print "[*] Generating 35 bit card hex for FC: "+fc+" and CN: "+cn
         print ""
         bl35(fc, cn)
 
     # only 37 bit
     elif bitlen == "37":
-        print "Generating 37 bit card hex for FC: "+fc+" and CN: "+cn
+        print "[*] Generating 37 bit card hex for FC: "+fc+" and CN: "+cn
         print ""
         bl37(fc, cn)
 
     # all
     else:
-        print "Generating hex values for FC: "+fc+" and CN: "+cn
+        print "[*] Generating hex values for FC: "+fc+" and CN: "+cn
         print ""
         bl26(fc, cn)
         bl35(fc, cn)

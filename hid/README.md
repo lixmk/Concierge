@@ -14,16 +14,16 @@ Blog: <http://exfil.co/2016/06/14/exploiting-vertx-door-controllers/>
 `git clone https://github.com/lixmk/Concierge`  
 `pip install netaddr`  
   
-## hidevo-exploit.py  
+## hid-evo-exploit-ZDI\_16\_223.py  
 This script exploits a root privileged command injection vulnerability (ZDI-16-223) to perform the actions listed below.  
-**Usage:** `./hidevo_exploit.py -r <rhost> -l <lhost> -c <cmd>`  
+**Usage:** `./hid-evo-exploit-ZDI_16_223.py -r <rhost> -l <lhost> -c <cmd>`  
 Commands Available:  
 * unlock:  Unlocks the associated door(s)  
 * lock:    Locks the associated door(s)  
 * blink:   Cycles a light pattern on the associated Badge Reader(s)  
-* exfil:   Downloads and decodes the controllers IdentDB file, parsing out associated RFID card numbers. Hex values provided can be copy/pasted into proxmark for cloning. This has not yet been tested for iClass, but will be soon. Recovered badge values are saved to `./hidevo-badges.csv` along with targets IP address and hostname.  
+* exfil:   Downloads and decodes the controllers IdentDB file, parsing out associated RFID card numbers. Hex values provided can be copy/pasted into proxmark for cloning. This has not yet been tested for iClass, but will be soon. Recovered badge values are saved to `./hid-evo-badges.csv` along with targets IP address and hostname.  
 * implant: Implants a backdoor badge value into the door controller. PM3 Hex: `2004060a73`. iClass Blk7 (Encrypted): `8b0c4cf554bca3fe` 
   
-## hidevo-discover.py  
-**Usage:** `./hidevo_discover -r <target(s) in CIDR>`  
-Uses HID's discoveryd service to identify HID EVO door controllers on the network. Identified door controllers are saved to `./hidevo-details.txt` which contains the full enumerated details of each identified HID EVO door controller. Currently only scans 1 ip at a time. Future version should allow for parallel scanning.  
+## hid-evo-discover.py  
+**Usage:** `./hid-evo-discover -r <target(s) in CIDR>`  
+Uses HID's discoveryd service to identify HID EVO door controllers on the network. Identified door controllers are saved to `./hid-evo-details.csv` which contains the full enumerated details of each identified HID EVO door controller. Currently only scans 1 ip at a time. Future version should allow for parallel scanning.  
