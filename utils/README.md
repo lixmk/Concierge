@@ -18,7 +18,7 @@ Host is up (0.12s latency).
 PORT     STATE         SERVICE
 4070/udp open|filtered unknown
 | hid-discoveryd-enum:
-|   MAC Address: 00:06:8E:FF:FF:FF
+|   MAC Address: 00:06:8E:XX:XX:XX
 |   Host Name: EdgeEH400-001
 |   Internal IP: 10.0.0.1
 |   Device Type: EH400

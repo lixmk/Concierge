@@ -2,8 +2,8 @@
 **11/4/17**  
   
 * Created this CHANGELOG file and removed changelog info from primary README file  
-* Merged PR for HID V1000 specific conditions in hid-evo-exploit.py (now renamed hid-evo-exploit-ZDI\_16\_223.py)  
-* Renamed most scripts for some kind of uniformity. Most are now `<vendor>-<model>-<action>.<ext>`. Exploits will include identifiers such as CVE or ZDI numbers, if available, as well.  
+* Merged PR for HID V1000 specific conditions in hid-evo-exploit.py (now renamed evo-exploit.py)  
+* Renamed most scripts for some kind of uniformity. Most are now `./<vendor>/<model>-<action>.<ext>`.  
 * Other various uniformity updates, primarily to printed banners  
 * Changed LICENSE to MIT for simplicity  
   

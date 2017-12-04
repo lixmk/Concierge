@@ -59,7 +59,7 @@ if __name__ == '__main__':
         print ""
         print "[!] This script is slow. The preferred method of discovery is using the nmap .nse in `utils/nse/`."
         print ""
-        sleep(5)
+        sleep(3)
         print "[*] Starting HID EVO door controller discovery."
         # Creating csv if not already there
         if path.isfile("hid-evo-details.csv") == 0:
