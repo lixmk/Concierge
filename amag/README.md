@@ -4,7 +4,9 @@ Various scripts to discovery and exploit AMAG Symmetry SMS and AMAG EN-1DBC, EN-
 ## References  
 Blog: Coming soon.  
 Advisory: CVE-2017-16241  
-  
+* https://www.secureworks.com/research/advisory-2017-001
+* https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2017-16241
+    
 ## endbc-exploit.py  
 This script exploits CVE-2017-16241 to trigger commands on the vulnerable door controller. This effectively allows for the full control of the device. Affected devices include: AMAG's EN-1DBC, EN-1DBC+, and EN-2DBC door controllers. This vulnerability can be used to trigger locking mechanisms over the network. Additionally, it allows for injection of known card values into the controllers internal DB. Use of these "backdoor badges" does not create an alarm event in the AMAG Symmetry SMS software under default configurations.  
   
