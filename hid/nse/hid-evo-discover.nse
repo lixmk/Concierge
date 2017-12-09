@@ -15,7 +15,7 @@ categories = {"discovery", "safe"}
 
 ---
 -- @usage
--- nmap -sU -p 4070 --script=hidevo-discover
+-- nmap -sU -p 4070 --script=hid-evo-discover
 --
 -- @output
 -- PORT     STATE         SERVICE

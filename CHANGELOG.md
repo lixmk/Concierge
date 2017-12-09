@@ -1,4 +1,13 @@
 ## Pseudo Changelog:  
+**12/09/17: HushCon Seattle Edition.**  
+This update contains a bunch of new scripts including exploits for AMAG's EN series of door controllers (CVE-2017-17241). Concierge is now, officially, a multi-vendor tool. More specifically:  
+* Discovery and exploit scripts for AMAG EN Series door controllers (EN-1DBC, EN-1DBC+, and EN-2DBC). Works on all versions under default conditions. (./amag/)  
+* Nmap NSE script for AMAG EN Series controller identification.  
+* Discovery script for Mercury based Door controllers via SNMP. Both in slow python and faster nmap .nse (Mercury Security, Lenel, some Honeywell, and more).  
+* A hostname based discovery script that leverages performs host name looks up and checks for generic and vendor specific keywords in hostnames.  
+* Various minor updates and/or bug fixes to most scripts.  
+* More renaming because I can't decide on a final convention.  
+  
 **11/4/17**  
   
 * Created this CHANGELOG file and removed changelog info from primary README file  

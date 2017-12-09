@@ -65,7 +65,7 @@ if __name__ == '__main__':
         if path.isfile("hid-evo-details.csv") == 0:
             with open("hid-evo-details.csv","a+")as f:
                 f.write("rhost,device type,hostname,reported ip,mac address,firmware version,build date\n")
-        # Cylcling discovery through cidr range
+        # Cycling discovery through cidr range
         for ip in netaddr.IPNetwork(rhosts).iter_hosts():
             hid_evo_discover()
     except (KeyboardInterrupt, SystemExit):
