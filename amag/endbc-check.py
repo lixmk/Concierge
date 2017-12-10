@@ -44,7 +44,9 @@ if __name__ == '__main__':
     print "#    AMAG EN Series CVE-2017-16241 Check    #"
     print "#############################################"
     print ""
-    print "[*] Starting AMAG EN Series CVE_2017_16241 check."
+    print "[!] This script isn't finished yet and doesn't work. For now, you can you endbc-discover.py with the -v switch"
+    sys.exit()
+    #print "[*] Starting AMAG EN Series CVE_2017_16241 check."
     print ""
     if path.isfile("endbc-CVE_2017_16241.csv") == 0:
         with open("endbc-CVE_2017_16241.csv","a+")as f:

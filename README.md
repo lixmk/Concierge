@@ -19,7 +19,7 @@ SocketServer
 argparse
 binascii
 netaddr
-nmap
+python-nmap
 pyshark
 re
 socket
