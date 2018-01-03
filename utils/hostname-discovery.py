@@ -17,7 +17,7 @@ keywords = {
     'hid':       ["hid","vertx","edge","evo","v1000","v2000","v2-v1000","v2-v2000","e400","eh400","es400","ehs400"],
     'mercury':   ["mercury","ep1501","ep1502","ep-1501","ep-1502"],
     'lenel':     ["lenel","lnl","2201","2202"],
-    'honeywell': ["honeywell","pro3200","winpak"],
+    'honeywell': ["honeywell","pro3200","winpak","netaxs"],
     'axis':      ["axis","A1001"],
     'custom':    [],
 }
@@ -55,7 +55,7 @@ def parse():
         print "  |"+str(count).rjust(10)+" | "+category.ljust(11)+"|"
     print "  |------------------------|"
     print ""
-    print"[*] Parsing complete. Results written to ./widenet-results.csv"
+    print"[*] Parsing complete. Results written to ./hostname-discovery-results.csv"
 
 def chkfile():
     if path.isfile("hostname-discovery-results.csv") == 0:
@@ -63,7 +63,7 @@ def chkfile():
             f.write("category,keyword,hostname,ip address\n")
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(usage='./generic-discovery.py -r 192.168.1.1/24')
+    parser = argparse.ArgumentParser(usage='./hostname-discovery.py -r 192.168.1.1/24')
     parser.add_argument('-r', '--rhosts', required=True, help='IP targets')
     parser.add_argument('-d', '--dns', help='Specify target DNS server (Default: System DNS)')
     parser.add_argument('-k', '--keywords', help='Additional custom keywords')
