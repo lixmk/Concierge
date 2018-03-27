@@ -21,14 +21,13 @@ from os import path
 
 def amag_parse(infile):
     print "[*] Loading pcap: "+infile+" ..."
-    pcap = pyshark.FileCapture(infile, display_filter='tcp.port == 3001 && (frame contains "8Mt" || frame contains "8Ma")')
+    pcap = pyshark.FileCapture(infile, display_filter='tcp.port == 3001 && (frame contains "8Mt")')
     pcap.load_packets()
     num = len(pcap)
     print "[*] Parsing pcap for AMAG Symmetry badge numbers..."
-    #Need to confirm math in for loop. Not sure if consitent.
-    for packet in range(0 , num+num-1):
-        data = str(pcap[packet].data.get_field_value('data'))
-        full = data[-28:-12]
+    for packet in range(0 , num):
+        pdata = str(pcap[packet].data.get_field_value('data'))
+        full = pdata[-28:-12]
         raw_cn = re.findall('..',full[:10])
         raw_fc = re.findall('..',full[-6:])
         cn = int(str(int(str(int(str("0x"+raw_cn[0]), 16)-0x10).zfill(2))).zfill(2)+str(int(str(int(str("0x"+raw_cn[1]), 16)-0x10).zfill(2))).zfill(2)+str(int(str(int(str("0x"+raw_cn[2]), 16)-0x10).zfill(2))).zfill(2)+str(int(str(int(str("0x"+raw_cn[3]), 16)-0x10).zfill(2))).zfill(2)+str(int(str(int(str("0x"+raw_cn[4]), 16)-0x10).zfill(2))).zfill(2))
