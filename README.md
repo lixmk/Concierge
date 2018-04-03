@@ -7,26 +7,11 @@ Concierge currently contains tests and/or exploits for the following vendors:
 * Mercury Security OEM (Mercury, Lenel, Honeywell, and others)  
 * Generic/Vendor Neutral  
   
-## Installation  
-Still working on putting together a full install script and such, but it's python, it's pretty straight forward. The following is a list of all python libraries used by the scripts.  
-  
+## Installation
+Concierge currently uses Python 2.7. You can install the necessary modules using the included requirements.txt:
 ```
-easysnmp
-os
-time
-SimpleHTTPServer
-SocketServer
-argparse
-binascii
-netaddr
-python-nmap
-pyshark
-re
-socket
-sys
-threading
-urllib2
-```  
+pip install -r requirements.txt
+```
   
 ## Usage  
 Usage for each script can be found it's associated directory's README.md file. At least until I get a wiki going.  
