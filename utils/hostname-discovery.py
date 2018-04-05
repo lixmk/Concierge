@@ -12,7 +12,7 @@ import argparse
 from os import path
 
 keywords = {
-    'generic':   ["physical","phys","pacs","pac","badge","access","door","controller","entry","exit","entrance"],
+    'generic':   ["phys","pacs","pac","badge","access","door","controller","entry","exit","entrance"],
     'amag':      ["amag","en1dbc","en2dbc","m2150","symmetry","sms"],
     'hid':       ["hid","vertx","edge","evo","v1000","v2000","v2-v1000","v2-v2000","e400","eh400","es400","ehs400"],
     'mercury':   ["mercury","ep1501","ep1502","ep-1501","ep-1502"],
