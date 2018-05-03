@@ -1,4 +1,7 @@
 ## Pseudo Changelog:  
+**05/03/18**  
+Adds new discovery script for Lantronix Modules, often found door controllers and other access control related devices.  
+
 **12/09/17: HushCon Seattle Edition.**  
 This update contains a bunch of new scripts including exploits for AMAG's EN series of door controllers (CVE-2017-17241). Concierge is now, officially, a multi-vendor tool. More specifically:  
 * Discovery and exploit scripts for AMAG EN Series door controllers (EN-1DBC, EN-1DBC+, and EN-2DBC). Works on all versions under default conditions. (./amag/)  
