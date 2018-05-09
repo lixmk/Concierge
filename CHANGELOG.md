@@ -1,4 +1,7 @@
 ## Pseudo Changelog:  
+**05/09/18**  
+Merged pull request from @atucom that completely rebuilt the hostname-discovery.py script. The script now has the option to parse nmap xml files instead of actively making DNS requests first.  
+
 **05/03/18**  
 Adds new discovery script for Lantronix Modules, often found door controllers and other access control related devices.  
 
