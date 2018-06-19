@@ -8,6 +8,10 @@ Concierge currently contains tests and/or exploits for the following vendors:
 * Generic/Vendor Neutral  
   
 ## Installation
+A Concierge module requires libsnmp-dev:  
+```
+apt-get update && apt-get -y install libsnmp-dev
+```
 Concierge currently uses Python 2.7. You can install the necessary modules using the included requirements.txt:
 ```
 pip install -r requirements.txt
