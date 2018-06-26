@@ -157,7 +157,7 @@ def main():
 
     if args.rhosts:
         # Scan the provided rhosts and output the report
-        hosts = scan_ranges(args.rhosts, dns=None)
+        hosts = scan_ranges(args.rhosts, args.dns)
         match_summary(parse_hosts(hosts, custom_keywords=args.keywords))
         # print("{} hosts returned".format(len(hosts.hosts)))
         exit()
